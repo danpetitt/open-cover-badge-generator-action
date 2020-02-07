@@ -1,4 +1,4 @@
-const core = require('@actions/core');
+//const core = require('@actions/core');
 const { BadgeFactory } = require('gh-badges');
 const fs = require('fs');
 const parseString = require('xml2js').parseString;
@@ -51,5 +51,5 @@ try {
   const svg = bf.create(format);
   fs.writeFileSync("coverage-badge.svg", svg);
 } catch (error) {
-   core.setFailed(error.message);
+   //core.setFailed(error.message);
 }
