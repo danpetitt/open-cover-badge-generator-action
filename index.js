@@ -27,10 +27,6 @@ try {
   // process.env[`INPUT_${'path-to-badge'.toUpperCase()}`] = 'coverage-badge.svg';
   // process.env[`INPUT_${'path-to-opencover-xml'.toUpperCase()}`] = 'coverage.opencover.xml';
 
-  const projectPath = process.env['GITHUB_WORKSPACE'];
-  core.info(`Current folder: ${process.cwd()}`);
-  core.info(`Project path: ${projectPath}`);
-  process.chdir(projectPath);
   core.info(`Current folder: ${process.cwd()}`);
 
   const minimumCoverage = parseInt(core.getInput('minimum-coverage', { required: true }), 10);
@@ -41,11 +37,17 @@ try {
   core.info(`path-to-badge: ${badgeFilePathInput}`);
   core.info(`path-to-opencover-xml: ${openCoverFilePathInput}`);
 
-  const badgeFilePath = `/${badgeFilePathInput}`;  //`~${projectPath}${badgeFilePathInput}`;
-  const openCoverFilePath = `/${openCoverFilePathInput}`;  //`~${projectPath}${openCoverFilePathInput}`;
+  const badgeFilePath = `${badgeFilePathInput}`;  //`~${projectPath}${badgeFilePathInput}`;
+  const openCoverFilePath = `${openCoverFilePathInput}`;  //`~${projectPath}${openCoverFilePathInput}`;
 
   core.info(`badgeFilePath: ${badgeFilePath}`);
   core.info(`openCoverFilePath: ${openCoverFilePath}`);
+
+  const files = fs.readdirSync(`.//`);
+  for (const file of files) {
+    core.info(`File: ${file}`);
+  }
+
 
   let coveragePercentage = 0;
 
