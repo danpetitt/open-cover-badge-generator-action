@@ -22,6 +22,11 @@ function parseXml(filepath) {
 }
 
 try {
+  // Testing paths
+  // process.env[`INPUT_${'minimum-coverage'.toUpperCase()}`] = '85';
+  // process.env[`INPUT_${'path-to-badge'.toUpperCase()}`] = 'coverage-badge.svg';
+  // process.env[`INPUT_${'path-to-opencover-xml'.toUpperCase()}`] = 'coverage.opencover.xml';
+
   const minimumCoverage = parseInt(core.getInput('minimum-coverage', { required: true }), 10);
   const badgeFilePath = core.getInput('path-to-badge', { required: true });
   const openCoverFilePath = core.getInput('path-to-opencover-xml', { required: true });
@@ -50,7 +55,7 @@ try {
     const svg = bf.create(format);
     fs.writeFileSync(badgeFilePath, svg);  
   } else {
-    core.setFailed(`Open cover file at '${openCoverFilePath}' could not be found`);
+    core.setFailed(`Open cover file at '${__dirname}//${openCoverFilePath}' could not be found`);
   }
 } catch (error) {
    core.setFailed(error.message);
