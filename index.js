@@ -28,20 +28,21 @@ try {
   // process.env[`INPUT_${'path-to-opencover-xml'.toUpperCase()}`] = 'coverage.opencover.xml';
 
   const projectPath = process.env['GITHUB_WORKSPACE'];
+  core.info(`Current folder: ${process.cwd()}`);
   core.info(`Project path: ${projectPath}`);
   process.chdir(projectPath);
   core.info(`Current folder: ${process.cwd()}`);
 
   const minimumCoverage = parseInt(core.getInput('minimum-coverage', { required: true }), 10);
-  const badgeFilePathInput = core.getInput('path-to-badge', { required: true });
-  const openCoverFilePathInput = core.getInput('path-to-opencover-xml', { required: true });
+  const badgeFilePathInput = core.getInput('path-to-badge', { required: true }).trim();
+  const openCoverFilePathInput = core.getInput('path-to-opencover-xml', { required: true }).trim();
 
   core.info(`minimum-coverage: ${minimumCoverage}`);
   core.info(`path-to-badge: ${badgeFilePathInput}`);
   core.info(`path-to-opencover-xml: ${openCoverFilePathInput}`);
 
-  const badgeFilePath = badgeFilePathInput;//`~${projectPath}${badgeFilePathInput}`;
-  const openCoverFilePath = openCoverFilePathInput;//`~${projectPath}${openCoverFilePathInput}`;
+  const badgeFilePath = `/${badgeFilePathInput}`;  //`~${projectPath}${badgeFilePathInput}`;
+  const openCoverFilePath = `/${openCoverFilePathInput}`;  //`~${projectPath}${openCoverFilePathInput}`;
 
   core.info(`badgeFilePath: ${badgeFilePath}`);
   core.info(`openCoverFilePath: ${openCoverFilePath}`);
@@ -70,7 +71,7 @@ try {
     const svg = bf.create(format);
     fs.writeFileSync(badgeFilePath, svg);  
   } else {
-    core.setFailed(`Open cover file at '${__dirname}//${openCoverFilePath}' could not be found`);
+    core.setFailed(`Open cover file at '${openCoverFilePath}' could not be found`);
   }
 } catch (error) {
    core.setFailed(error.message);
