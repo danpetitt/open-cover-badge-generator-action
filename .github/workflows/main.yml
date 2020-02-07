@@ -1,0 +1,13 @@
+on: [push]
+
+jobs:
+  generate_badge:
+    runs-on: ubuntu-latest
+    name: Generates a badge
+    steps:
+      - name: OpenCover Badge Generator
+        uses: danpetitt/open-cover-badge-generator-action@v1.0
+      - uses: actions/upload-artifact@v1
+        with:
+          name: coverage-badge.svg
+          path: ./
