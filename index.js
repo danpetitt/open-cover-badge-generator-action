@@ -22,34 +22,36 @@ function parseXml(filepath) {
 }
 
 try {
-  let coverage = 0;
+  const minimumCoverage = parseInt(core.getInput('minimum-coverage', { required: true }), 10);
+  const badgeFilePath = core.getInput('path-to-badge', { required: true });
+  const openCoverFilePath = core.getInput('path-to-opencover-xml', { required: true });
+
+  let coveragePercentage = 0;
 
   // Find the open cover xml file
-  const files = fs.readdirSync(`${__dirname}`);
-  for (const file of files) {
-    if (file.indexOf('.xml') !== -1) {
-      const sequenceCoverage = parseXml(`${__dirname}\\${file}`);
-      if (sequenceCoverage) {
-        coverage = Math.round(parseInt(sequenceCoverage, 10));
-        break;
-      }
+  if (fs.existsSync(openCoverFilePath)) {
+    const sequenceCoverage = parseXml(openCoverFilePath);
+    if (sequenceCoverage) {
+      coveragePercentage = Math.round(parseInt(sequenceCoverage, 10));
     }
+
+    let color = 'green';
+    if (coveragePercentage < minimumCoverage) {
+      color = 'red';
+    }
+  
+    const format = {
+      text: ['coverage', `${coveragePercentage}%`],
+      color: color,
+      template: 'flat',
+    };
+  
+    const bf = new BadgeFactory();
+    const svg = bf.create(format);
+    fs.writeFileSync(badgeFilePath, svg);  
+  } else {
+    core.setFailed(`Open cover file at '${openCoverFilePath}' could not be found`);
   }
-
-  let color = 'green';
-  if (coverage < 50) {
-    color = 'red';
-  }
-
-  const format = {
-    text: ['coverage', `${coverage}%`],
-    color: color,
-    template: 'flat',
-  };
-
-  const bf = new BadgeFactory();
-  const svg = bf.create(format);
-  fs.writeFileSync("coverage-badge.svg", svg);
 } catch (error) {
    core.setFailed(error.message);
 }

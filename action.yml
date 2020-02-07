@@ -1,8 +1,8 @@
 name: 'OpenCover Badge Generator'
 description: 'Reads an open cover xml file and generates a badge to use in readme file'
 branding:
-  icon: 'git-merge'
-  color: 'gray-dark'
+  icon: 'percent'
+  color: 'yellow'
 runs:
   using: 'node12'
   main: 'index.js'
