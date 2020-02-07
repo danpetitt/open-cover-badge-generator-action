@@ -1,6 +1,6 @@
 # Badge Generator for Github Actions
 
-Simple action to generate a coverage badge from an OpenCover XML file.
+Simple action to generate a coverage badge from an OpenCover XML file. Ensure you get the case of the paths correct for the agent running the job.
 
 ## Example usage
 

@@ -27,33 +27,20 @@ try {
   // process.env[`INPUT_${'path-to-badge'.toUpperCase()}`] = 'coverage-badge.svg';
   // process.env[`INPUT_${'path-to-opencover-xml'.toUpperCase()}`] = 'coverage.opencover.xml';
 
-  core.info(`Current folder: ${process.cwd()}`);
-
   const minimumCoverage = parseInt(core.getInput('minimum-coverage', { required: true }), 10);
   const badgeFilePathInput = core.getInput('path-to-badge', { required: true }).trim();
   const openCoverFilePathInput = core.getInput('path-to-opencover-xml', { required: true }).trim();
 
-  core.info(`minimum-coverage: ${minimumCoverage}`);
-  core.info(`path-to-badge: ${badgeFilePathInput}`);
-  core.info(`path-to-opencover-xml: ${openCoverFilePathInput}`);
-
-  const badgeFilePath = `${badgeFilePathInput}`;  //`~${projectPath}${badgeFilePathInput}`;
-  const openCoverFilePath = `${openCoverFilePathInput}`;  //`~${projectPath}${openCoverFilePathInput}`;
-
-  core.info(`badgeFilePath: ${badgeFilePath}`);
-  core.info(`openCoverFilePath: ${openCoverFilePath}`);
-
-  const files = fs.readdirSync(`.//`);
-  for (const file of files) {
-    core.info(`File: ${file}`);
-  }
+  // core.info(`minimum-coverage: ${minimumCoverage}`);
+  // core.info(`path-to-badge: ${badgeFilePathInput}`);
+  // core.info(`path-to-opencover-xml: ${openCoverFilePathInput}`);
 
 
   let coveragePercentage = 0;
 
   // Find the open cover xml file
-  if (fs.existsSync(openCoverFilePath)) {
-    const sequenceCoverage = parseXml(openCoverFilePath);
+  if (fs.existsSync(openCoverFilePathInput)) {
+    const sequenceCoverage = parseXml(openCoverFilePathInput);
     if (sequenceCoverage) {
       coveragePercentage = Math.round(parseInt(sequenceCoverage, 10));
     }
@@ -71,9 +58,12 @@ try {
   
     const bf = new BadgeFactory();
     const svg = bf.create(format);
-    fs.writeFileSync(badgeFilePath, svg);  
+    fs.writeFileSync(badgeFilePathInput, svg);
+
+    // Now commit the file
+
   } else {
-    core.setFailed(`Open cover file at '${openCoverFilePath}' could not be found`);
+    core.setFailed(`Open cover file at '${openCoverFilePathInput}' could not be found`);
   }
 } catch (error) {
    core.setFailed(error.message);
