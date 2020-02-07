@@ -1,5 +1,15 @@
 name: 'OpenCover Badge Generator'
 description: 'Reads an open cover xml file and generates a badge to use in readme file'
+inputs:
+  path-to-opencover-xml:
+    description: 'Set the path to the open cover xml file'
+    required: true
+  path-to-badge:
+    description: 'Set the path and name where the coverage svg would be saved'
+    required: true
+  minimum-coverage:
+    description: 'Threshold percentage at which a red badge would appear'
+    required: true
 branding:
   icon: 'percent'
   color: 'yellow'

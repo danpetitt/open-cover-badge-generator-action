@@ -29,6 +29,8 @@ try {
 
   const projectPath = process.env['GITHUB_WORKSPACE'];
   core.info(`Project path: ${projectPath}`);
+  process.chdir(projectPath);
+  core.info(`Current folder: ${process.cwd()}`);
 
   const minimumCoverage = parseInt(core.getInput('minimum-coverage', { required: true }), 10);
   const badgeFilePathInput = core.getInput('path-to-badge', { required: true });
@@ -38,8 +40,8 @@ try {
   core.info(`path-to-badge: ${badgeFilePathInput}`);
   core.info(`path-to-opencover-xml: ${openCoverFilePathInput}`);
 
-  const badgeFilePath = `~${projectPath}${badgeFilePathInput}`;
-  const openCoverFilePath = `~${projectPath}${openCoverFilePathInput}`;
+  const badgeFilePath = badgeFilePathInput;//`~${projectPath}${badgeFilePathInput}`;
+  const openCoverFilePath = openCoverFilePathInput;//`~${projectPath}${openCoverFilePathInput}`;
 
   core.info(`badgeFilePath: ${badgeFilePath}`);
   core.info(`openCoverFilePath: ${openCoverFilePath}`);
