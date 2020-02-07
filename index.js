@@ -38,8 +38,8 @@ try {
   core.info(`path-to-badge: ${badgeFilePathInput}`);
   core.info(`path-to-opencover-xml: ${openCoverFilePathInput}`);
 
-  const badgeFilePath = `${projectPath}${badgeFilePathInput}`;
-  const openCoverFilePath = `${projectPath}${openCoverFilePathInput}`;
+  const badgeFilePath = `~${projectPath}${badgeFilePathInput}`;
+  const openCoverFilePath = `~${projectPath}${openCoverFilePathInput}`;
 
   core.info(`badgeFilePath: ${badgeFilePath}`);
   core.info(`openCoverFilePath: ${openCoverFilePath}`);
