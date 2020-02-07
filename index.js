@@ -28,10 +28,21 @@ try {
   // process.env[`INPUT_${'path-to-opencover-xml'.toUpperCase()}`] = 'coverage.opencover.xml';
 
   const projectPath = process.env['GITHUB_WORKSPACE'];
+  core.info(`Project path: ${projectPath}`);
 
   const minimumCoverage = parseInt(core.getInput('minimum-coverage', { required: true }), 10);
-  const badgeFilePath = `${projectPath}//${core.getInput('path-to-badge', { required: true })}`;
-  const openCoverFilePath = `${projectPath}//${core.getInput('path-to-opencover-xml', { required: true })}`;
+  const badgeFilePathInput = core.getInput('path-to-badge', { required: true });
+  const openCoverFilePathInput = core.getInput('path-to-opencover-xml', { required: true });
+
+  core.info(`minimum-coverage: ${minimumCoverage}`);
+  core.info(`path-to-badge: ${badgeFilePathInput}`);
+  core.info(`path-to-opencover-xml: ${openCoverFilePathInput}`);
+
+  const badgeFilePath = `${projectPath}${badgeFilePathInput}`;
+  const openCoverFilePath = `${projectPath}${openCoverFilePathInput}`;
+
+  core.info(`badgeFilePath: ${badgeFilePath}`);
+  core.info(`openCoverFilePath: ${openCoverFilePath}`);
 
   let coveragePercentage = 0;
 
