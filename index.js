@@ -67,7 +67,7 @@ async function run() {
     await exec.exec('git', ['config', 'user.name', `"${process.env['GITHUB_ACTOR']}"`]);
     await exec.exec('git', ['config', 'user.email', `"${process.env['GITHUB_ACTOR']}@users.noreply.github.com"`]);
 
-   await exec.exec('git', ['remote', 'set-url', 'origin', `https://x-access-token:${repoTokenInput}@github.com/`]);
+   await exec.exec('git', ['remote', 'set-url', 'origin', `https://x-access-token:${repoTokenInput}@github.com/${process.env['GITHUB_REPOSITORY']}.git`]);
     // await exec.exec('git', ['remote', 'set-url', 'origin', `https://${GITHUB_ACTOR}:${repoTokenInput}@github.com/${process.env['GITHUB_REPOSITORY']}.git`]);
 
     await exec.exec('git', ['add', badgeFilePathInput]);
