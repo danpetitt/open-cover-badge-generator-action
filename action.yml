@@ -4,9 +4,9 @@ inputs:
   path-to-opencover-xml:
     description: 'Set the path to the open cover xml file'
     required: true
-  path-to-badge:
-    description: 'Set the path and name where the coverage svg would be saved'
-    required: true
+  path-to-badges:
+    description: 'Set the path where the line and branch coverage svg's would be saved; these will be saved with the names coverage-badge-line.svg and coverage-badge-branch.svg; if not specified the files will be saved into the project root'
+    required: false
   minimum-coverage:
     description: 'Threshold percentage at which a red badge would appear'
     required: true

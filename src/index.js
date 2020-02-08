@@ -1,41 +1,40 @@
 require('dotenv').config()
 const core = require('@actions/core');
-const { BadgeFactory } = require('gh-badges');
-const fs = require('promise-fs');
 const parseOpenCover = require('./parse-xml');
 const commitAndPush = require('./git-utils');
+const generateBadge = require('./generate-badge');
 
 async function run() {
   try {
-    const minimumCoverage = parseInt(core.getInput('minimum-coverage', { required: true }), 10);
-    const badgeFilePathInput = core.getInput('path-to-badge', { required: true });
     const openCoverFilePathInput = core.getInput('path-to-opencover-xml', { required: true });
-
-    let coveragePercentage = 0;
-
-    const sequenceCoverage = await parseOpenCover(openCoverFilePathInput);
-    if (sequenceCoverage) {
-      coveragePercentage = Math.round(parseInt(sequenceCoverage, 10));
+    let badgesFilePathInput = core.getInput('path-to-badges', { required: false, });
+    if (!badgesFilePathInput) {
+      badgesFilePathInput = './/';
     }
 
-    let color = 'green';
-    if (coveragePercentage < minimumCoverage) {
-      color = 'red';
+    const coverageResults = await parseOpenCover(openCoverFilePathInput);
+    if (!coverageResults) {
+      core.setFailed('No coverage results could be found');
     }
-  
-    const format = {
-      text: ['coverage', `${coveragePercentage}%`],
-      color: color,
-      template: 'flat',
-    };
-  
-    // Create the badge
-    const bf = new BadgeFactory();
-    const svg = bf.create(format);
-    await fs.writeFile(badgeFilePathInput, svg);
-  
-    // Commit and push the badge
-    await commitAndPush(badgeFilePathInput);
+
+    const lineBadgePath = `${badgesFilePathInput}//coverage-badge-line.svg`.replace(/\/\/\/\//g, '//');
+    generateBadge(
+      lineBadgePath,
+      'coverage: line',
+      coverageResults.lineCoverage
+    );
+
+    const branchBadgePath = `${badgesFilePathInput}//coverage-badge-branch.svg`.replace(/\/\/\/\//g, '//');
+    generateBadge(
+      branchBadgePath,
+      'coverage: branch',
+      coverageResults.branchCoverage
+    );
+
+    await commitAndPush([
+      lineBadgePath,
+      branchBadgePath
+    ]);
 
     core.info('Action successful');
   } catch (error) {

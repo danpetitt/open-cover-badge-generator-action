@@ -1,6 +1,6 @@
 {
   "name": "open-cover-badge-generator-action",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "GitHub Action to read an open cover xml file in the project folder and generate a badge to use in readme file",
   "repository": "https://github.com/danpetitt/open-cover-badge-generator-action",
   "main": "src/index.js",
@@ -18,6 +18,6 @@
     "dotenv": "^8.2.0",
     "gh-badges": "^2.2.1",
     "promise-fs": "^2.1.1",
-    "xml2js": "^0.4.23"
+    "xml2js-parser": "^1.1.1"
   }
 }

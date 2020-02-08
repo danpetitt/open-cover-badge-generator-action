@@ -6,10 +6,10 @@ jobs:
     name: Generates a badge
     steps:
       - name: OpenCover Badge Generator
-        uses: danpetitt/open-cover-badge-generator-action@v1.0
+        uses: danpetitt/open-cover-badge-generator-action@v1.0.2
       - uses: actions/upload-artifact@v1
         with:
-          path-to-badge: coverage-badge.svg
-          path-to-opencover-xml: test/opencover.xml
+          path-to-badges: ./
+          path-to-opencover-xml: ./test/opencover.xml
           minimum-coverage: 75
           repo-token: ${{ secrets.GITHUB_TOKEN }}
