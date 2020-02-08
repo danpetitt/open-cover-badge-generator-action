@@ -62,6 +62,11 @@ async function run() {
     const svg = bf.create(format);
     await fs.writeFile(badgeFilePathInput, svg);
 
+    const files = fs.readdirSync(`.//`);
+    for (const file of files) {
+      core.info(`File: ${file}`);
+    }
+  
     // Now commit the file
     core.info('Committing new badge');
 //    await exec.exec('git', ['config', '--global user.name', `"${process.env['GITHUB_ACTOR']}"`]);
