@@ -64,8 +64,9 @@ async function run() {
 
     // Now commit the file
     core.info('Committing new badge');
-    await exec.exec('git', ['config', '--global user.name', `"${process.env['GITHUB_ACTOR']}"`]);
-    await exec.exec('git', ['config', '--global user.email', `"${process.env['GITHUB_ACTOR']}@users.noreply.github.com"`]);
+//    await exec.exec('git', ['config', '--global user.name', `"${process.env['GITHUB_ACTOR']}"`]);
+//    await exec.exec('git', ['config', '--global user.email', `"${process.env['GITHUB_ACTOR']}@users.noreply.github.com"`]);
+
     await exec.exec('git', ['remote', 'set-url', 'origin', `"https://x-access-token:${repoTokenInput}@github.com/${process.env['GITHUB_REPOSITORY']}"`]);
     await exec.exec('git', ['add', `"${badgeFilePathInput}"`]);
     await exec.exec('git', ['commit', '-m', `"Code coverage badge [skip ci]"`]);
