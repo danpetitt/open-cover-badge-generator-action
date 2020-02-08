@@ -10,6 +10,9 @@ inputs:
   minimum-coverage:
     description: 'Threshold percentage at which a red badge would appear'
     required: true
+  repo-token:
+    description: 'Github repo token so that the changed file can be committed'
+    required: true
 branding:
   icon: 'percent'
   color: 'yellow'

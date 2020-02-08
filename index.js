@@ -1,4 +1,6 @@
+const exec = require('@actions/exec');
 const core = require('@actions/core');
+const github = require("@actions/github");
 const { BadgeFactory } = require('gh-badges');
 const fs = require('fs');
 const parseString = require('xml2js').parseString;
@@ -30,11 +32,11 @@ try {
   const minimumCoverage = parseInt(core.getInput('minimum-coverage', { required: true }), 10);
   const badgeFilePathInput = core.getInput('path-to-badge', { required: true }).trim();
   const openCoverFilePathInput = core.getInput('path-to-opencover-xml', { required: true }).trim();
+  const repoTokenInput = core.getInput('repo-token', { required: true }).trim();
 
   // core.info(`minimum-coverage: ${minimumCoverage}`);
   // core.info(`path-to-badge: ${badgeFilePathInput}`);
   // core.info(`path-to-opencover-xml: ${openCoverFilePathInput}`);
-
 
   let coveragePercentage = 0;
 
@@ -61,6 +63,17 @@ try {
     fs.writeFileSync(badgeFilePathInput, svg);
 
     // Now commit the file
+    // const octokit = new github.GitHub(repoTokenInput);    
+    // octokit.pulls
+    // client.graphql.
+    core.info('Committing new badge');
+    await exec.exec('git', ['config', '--global user.name', `"${process.env['GITHUB_ACTOR']}"`]);
+    await exec.exec('git', ['config', '--global user.email', `"${process.env['GITHUB_ACTOR']}@users.noreply.github.com"`]);
+    await exec.exec('git', ['remote', 'set-url', 'origin', `"https://x-access-token:${repoTokenInput}@github.com/${process.env['GITHUB_REPOSITORY']}"`]);
+    await exec.exec('git', ['add', `"${badgeFilePathInput}"`]);
+    await exec.exec('git', ['commit', '-m', `"Code coverage badge [skip ci]"`]);
+    await exec.exec('git', ['push']);
+    core.info('New coverage badge committed, all done');
 
   } else {
     core.setFailed(`Open cover file at '${openCoverFilePathInput}' could not be found`);

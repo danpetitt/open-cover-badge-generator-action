@@ -20,4 +20,5 @@ jobs:
           path-to-opencover-xml: test/opencover.xml
           path-to-badge: coverage-badge.svg
           minimum-coverage: 75
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 ```
