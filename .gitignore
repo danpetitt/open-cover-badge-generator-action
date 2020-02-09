@@ -1,1 +1,4 @@
 .env
+coverage.opencover.xml
+coverage-badge-branch.svg
+coverage-badge-line.svg
