@@ -39,16 +39,16 @@ Once generated you will get two badges called `coverage-badge-line.svg` and `cov
 
 ### `path-to-opencover-xml`
 
-**Required** Path to the open cover xml file
+**Required:** Path to the open cover xml file
 
 ### `path-to-badges`
 
-**Optional** Path where the line and branch coverage svgs would be saved; these will be saved with the names coverage-badge-line.svg and coverage-badge-branch.svg; if not specified the files will be saved into the project root. Default `"./"`.
+**Optional:** Path where the line and branch coverage svgs would be saved; these will be saved with the names `coverage-badge-line.svg` and `coverage-badge-branch.svg`; if not specified the files will be saved into the project root. Default `"./"`.
 
 ### `minimum-coverage`
 
-**Required** Threshold percentage at which a red badge would appear.
+**Required:** Threshold percentage at which a red badge would appear.
 
 ### `repo-token`
 
-**Required** GitHub repo token so that the changed file can be committed, like `${{ secrets.CI_TOKEN }}`
+**Required:** GitHub repo token so that the changed file can be committed, like `${{ secrets.CI_TOKEN }}`
