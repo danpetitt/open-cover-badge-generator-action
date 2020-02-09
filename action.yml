@@ -12,7 +12,7 @@ inputs:
     description: 'Threshold percentage at which a red badge would appear'
     required: true
   repo-token:
-    description: 'Github repo token so that the changed file can be committed'
+    description: 'Github repo token so that the changed file can be committed, like ${{ secrets.GITHUB_TOKEN }}'
     required: true
 branding:
   icon: 'percent'
