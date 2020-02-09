@@ -11,7 +11,10 @@
     "opencover",
     "badge",
     "github",
-    "action"
+    "action",
+    "coverlet",
+    "dotnet",
+    "coverage"
   ],
   "private": true,
   "author": "Dan Petitt",
