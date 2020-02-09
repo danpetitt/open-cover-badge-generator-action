@@ -26,7 +26,7 @@ jobs:
           path-to-opencover-xml: ./test/opencover.xml
           path-to-badges: ./
           minimum-coverage: 75
-          repo-token: ${{ secrets.CI_GITHUB_TOKEN }}
+          repo-token: ${{ secrets.CI_TOKEN }}
 ```
 
 Once generated you will get two badges called `coverage-badge-line.svg` and `coverage-badge-branch.svg` saved into the path you specified that you can then add to your project readme like:

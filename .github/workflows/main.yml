@@ -12,14 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Generates a badge
     steps:
-      - name: OpenCover Badge Generator - build
-      - uses: actions/checkout@v2
-      - run: |
-          npm install
-      - name: OpenCover Badge Generator - generate
-      - uses: danpetitt/open-cover-badge-generator-action@v1.0.3
+      - name: OpenCover Badge Generator
+      - uses: danpetitt/open-cover-badge-generator-action@v1.0.5
         with:
           path-to-badges: ./
           path-to-opencover-xml: ./test/opencover.xml
           minimum-coverage: 75
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.CI_TOKEN }}
