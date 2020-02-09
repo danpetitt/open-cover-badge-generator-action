@@ -18,23 +18,27 @@ async function run() {
     }
 
     const lineBadgePath = `${badgesFilePathInput}//coverage-badge-line.svg`.replace(/\/\/\/\//g, '//');
-    generateBadge(
+    const wasNewLineBadgeCreated = generateBadge(
       lineBadgePath,
       'coverage: line',
       coverageResults.lineCoverage
     );
 
     const branchBadgePath = `${badgesFilePathInput}//coverage-badge-branch.svg`.replace(/\/\/\/\//g, '//');
-    generateBadge(
+    const wasNewBranchBadgeCreated = generateBadge(
       branchBadgePath,
       'coverage: branch',
       coverageResults.branchCoverage
     );
 
-    await commitAndPush([
-      lineBadgePath,
-      branchBadgePath
-    ]);
+    if (wasNewLineBadgeCreated || wasNewBranchBadgeCreated) {
+      await commitAndPush([
+        lineBadgePath,
+        branchBadgePath
+      ]);
+    } else {
+      core.info('No new badges were created, skipping git commit')
+    }
 
     core.info('Action successful');
   } catch (error) {
