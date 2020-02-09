@@ -18,13 +18,15 @@ const generateBadge = async function(badgeFilePath, labelName, coveragePercentag
 
   // Create the badge
   let existingBadge = '';
-  if (await fs.exists(badgeFilePath)) {
-    existingBadge = fs.readFile(badgeFilePath);
+  if (fs.existsSync(badgeFilePath)) {
+    existingBadge = (await fs.readFile(badgeFilePath)).toString();
   }
+
   const bf = new BadgeFactory();
   await fs.writeFile(badgeFilePath, bf.create(format));
-  const generatingBadge = fs.readFile(badgeFilePath);
-  return generatingBadge === existingBadge;
+
+  const generatingBadge = (await fs.readFile(badgeFilePath)).toString();
+  return generatingBadge !== existingBadge;
 }
 
 module.exports = generateBadge;

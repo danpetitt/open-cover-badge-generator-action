@@ -18,14 +18,14 @@ async function run() {
     }
 
     const lineBadgePath = `${badgesFilePathInput}//coverage-badge-line.svg`.replace(/\/\/\/\//g, '//');
-    const wasNewLineBadgeCreated = generateBadge(
+    const wasNewLineBadgeCreated = await generateBadge(
       lineBadgePath,
       'coverage: line',
       coverageResults.lineCoverage
     );
 
     const branchBadgePath = `${badgesFilePathInput}//coverage-badge-branch.svg`.replace(/\/\/\/\//g, '//');
-    const wasNewBranchBadgeCreated = generateBadge(
+    const wasNewBranchBadgeCreated = await generateBadge(
       branchBadgePath,
       'coverage: branch',
       coverageResults.branchCoverage
