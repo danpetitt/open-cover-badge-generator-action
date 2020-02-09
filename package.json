@@ -1,17 +1,21 @@
 {
   "name": "open-cover-badge-generator-action",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "GitHub Action to read an open cover xml file in the project folder and generate a badge to use in readme file",
-  "repository": "https://github.com/danpetitt/open-cover-badge-generator-action",
   "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danpetitt/open-cover-badge-generator-action.git"
+  },
   "keywords": [
     "opencover",
     "badge",
     "github",
     "action"
   ],
+  "private": true,
   "author": "Dan Petitt",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.0",
     "@actions/exec": "^1.0.3",

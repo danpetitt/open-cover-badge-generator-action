@@ -1,5 +1,6 @@
 name: 'OpenCover Badge Generator'
 description: 'Reads an open cover xml file and generates a badge to use in readme file'
+author: 'Dan Petitt (Coderanger.com)'
 inputs:
   path-to-opencover-xml:
     description: 'Set the path to the open cover xml file'

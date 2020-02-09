@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: OpenCover Badge Generator
-        uses: danpetitt/open-cover-badge-generator-action@1.0.0
+        uses: danpetitt/open-cover-badge-generator-action@1.0.3
         with:
           path-to-opencover-xml: ./test/opencover.xml
           path-to-badges: ./
