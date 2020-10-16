@@ -3,11 +3,17 @@ const core = require('@actions/core');
 
 const commitAndPush = async function(files) {
   const repoTokenInput = core.getInput('repo-token', { required: true });
+  const branchName = core.getInput('commit-branch-name', { required: false });
 
   core.info('Committing new badge');
   await exec.exec('git', ['config', 'user.name', `"${process.env['GITHUB_ACTOR']}"`]);
   await exec.exec('git', ['config', 'user.email', `"${process.env['GITHUB_ACTOR']}@users.noreply.github.com"`]);
   await exec.exec('git', ['remote', 'set-url', 'origin', `https://x-access-token:${repoTokenInput}@github.com/${process.env['GITHUB_REPOSITORY']}.git`]);
+
+  if (branchName.length > 0) {
+    await exec.exec('git', ['checkout', branchName]);
+  }
+
   for (const file of files) {
     await exec.exec('git', ['add', file]);
   }
