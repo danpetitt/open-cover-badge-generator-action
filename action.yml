@@ -11,6 +11,13 @@ inputs:
   minimum-coverage:
     description: 'Threshold percentage at which a red badge would appear'
     required: true
+  commit-badges:
+    description: 'Commit changed badges to repository'
+    required: false
+    default: true
+  commit-branch-name:
+    description: 'Specify alternative branch to commit changed badges into'
+    required: false
   repo-token:
     description: 'Github repo token so that the changed file can be committed, like secrets.GITHUB_TOKEN'
     required: true

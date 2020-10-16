@@ -7,7 +7,7 @@ const generateBadge = require('./generate-badge');
 async function run() {
   try {
     const openCoverFilePathInput = core.getInput('path-to-opencover-xml', { required: true });
-    let badgesFilePathInput = core.getInput('path-to-badges', { required: false, });
+    let badgesFilePathInput = core.getInput('path-to-badges', { required: false });
     if (!badgesFilePathInput) {
       badgesFilePathInput = './/';
     }
@@ -32,10 +32,14 @@ async function run() {
     );
 
     if (wasNewLineBadgeCreated || wasNewBranchBadgeCreated) {
-      await commitAndPush([
-        lineBadgePath,
-        branchBadgePath
-      ]);
+      // Default for no value is 'true'
+      const commitBadges = core.getInput('commit-badges', { required: false });
+      if (commitBadges.length === 0 || commitBadges === 'true') {
+        await commitAndPush([
+          lineBadgePath,
+          branchBadgePath
+        ]);
+      }
     } else {
       core.info('No new badges were created, skipping git commit')
     }

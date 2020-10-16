@@ -24,6 +24,7 @@ jobs:
           path-to-opencover-xml: ./test/opencover.xml
           path-to-badges: ./
           minimum-coverage: 75
+          commit-badges: false
           repo-token: ${{ secrets.CI_TOKEN }}
 ```
 
@@ -50,6 +51,14 @@ Path to the open cover xml file
 ### `minimum-coverage` (Required)
 
 Threshold percentage at which a red badge would appear.
+
+### `commit-badges` (Optional)
+
+**Optional:** When set will commit the changed badges to the repo. Default `true`.
+
+### `commit-branch-name` (Optional)
+
+**Optional:** When set will checkout the given branch name before committing the changed badges. Default is the current main branch.
 
 ### `repo-token` (Required)
 
